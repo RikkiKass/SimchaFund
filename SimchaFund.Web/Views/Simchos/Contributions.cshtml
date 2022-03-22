@@ -28,7 +28,7 @@
                 <tr>
                     <td>
                         <input type="hidden" name="contributors[@i].Id" value="@Model.Contributors[i].Id" />
-                        @if (Model.Contributors[i].AlwaysInclude)
+                        @if (Model.Contributors[i].AlwaysInclude||Model.Contributors[i].AlreadyIncluded)
                         {
                             <input type="checkbox" id="check-box" value="true" name="contributors[@i].Include" checked="checked">
                         }

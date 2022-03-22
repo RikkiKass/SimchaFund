@@ -26,7 +26,10 @@ namespace SimchaFund.Web.Controllers
             Manager manager = new Manager(_connectionString);
             string simchaName = manager.GetSimchaName(simchaId);
             List<Contributor> contributors = manager.GetContributors();
-           
+            foreach(Contributor contributor in contributors)
+            {
+                contributor.AlreadyIncluded = manager.AlreadyIncluded(simchaId, contributor.Id);
+            }
             ContributionsViewModel vm = new ContributionsViewModel
             {
                 SimchaId=simchaId,

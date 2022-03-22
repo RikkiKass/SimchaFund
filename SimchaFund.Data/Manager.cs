@@ -257,6 +257,23 @@ namespace SimchaFund.Data
             }
             return histories;
         }
+        public bool AlreadyIncluded(int simchaId, int contributorId)
+        {
+
+            using var connection = new SqlConnection(_connectionString);
+            using var cmd = connection.CreateCommand();
+            cmd.CommandText = "select*from SimchosContributors where Simchaid=@simchaId And ContributorId=@conId";
+            cmd.Parameters.AddWithValue("@simchaId", simchaId);
+            cmd.Parameters.AddWithValue("@conId", contributorId);
+            connection.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (!reader.Read())
+            {
+                return false;
+            }
+            
+            return true;
+        }
 
     }
 
@@ -279,6 +296,7 @@ namespace SimchaFund.Data
         public decimal Balance { get; set; }
         public bool Include { get; set; }
         public decimal AmountWishesToGive { get; set; }
+        public bool AlreadyIncluded { get; set; }
     }
     public class Deposit
     {
